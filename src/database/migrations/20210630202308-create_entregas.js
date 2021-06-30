@@ -14,16 +14,14 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
         references: {model: 'Clientes', key:'id'},
-        onUpdate: 'RESTRICT',
-        onDelete: 'RESTRICT',
+        onDelete: 'CASCADE',
       },
       motoboy: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         references: {model: 'Motoboys', key:'id'},
-        onUpdate: 'RESTRICT',
-        onDelete: 'RESTRICT',
+        onDelete: 'CASCADE',
       },
       valor:{
         type: Sequelize.DECIMAL(8, 2),

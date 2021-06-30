@@ -16,7 +16,6 @@ module.exports = {
       cpf:{
         type: Sequelize.STRING(14),
         allowNull: false,
-        unique: true,
       },
       senha:{
         type: Sequelize.STRING,
@@ -25,6 +24,12 @@ module.exports = {
       telefone:{
         type: Sequelize.STRING,
         allowNull: false
+      },
+      associado:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'Associados', key:'id'},
+        onDelete: 'CASCADE'
       }
     })
   },
