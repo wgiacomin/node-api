@@ -9,7 +9,7 @@
         "ecmaVersion": 12
     },
     "rules": {
-        "quotes": ["error", "single"], 
+        "quotes": ["error", "single" , { "avoidEscape": true, "allowTemplateLiterals": true }], 
         "curly": 2,
         "semi": ["error", "never"],
         "indent": ["error", 2],
