@@ -8,7 +8,7 @@ function passwordValidation(password){
   } else if (!password.match(/[!@#$%^&*(),.?":{}|<>]/)){
     return 'A senha deve conter ao mínimo um caractere especial: !@#$%^&*(),.?":{}|<>].'
   } else {
-    return true
+    return false
   }
 }
 
