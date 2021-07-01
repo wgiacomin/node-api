@@ -3,29 +3,26 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Entregas', {
-      createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
+      id: {
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        autoIncrement: true,
+        allowNull: false,
       },
       cliente: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {model: 'Clientes', key:'id'},
         onDelete: 'CASCADE',
       },
       motoboy: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {model: 'Motoboys', key:'id'},
         onDelete: 'CASCADE',
       },
       associado: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {model: 'Associados', key:'id'},
         onDelete: 'CASCADE',

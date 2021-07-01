@@ -26,4 +26,4 @@ Object.keys(models).forEach(modelName => {
 models.connection = sequelize
 models.Sequelize = Sequelize
 
-module.exports = models
+module.exports = models.connection.models
