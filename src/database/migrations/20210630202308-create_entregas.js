@@ -23,6 +23,13 @@ module.exports = {
         references: {model: 'Motoboys', key:'id'},
         onDelete: 'CASCADE',
       },
+      associado: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        references: {model: 'Associados', key:'id'},
+        onDelete: 'CASCADE',
+      },
       valor:{
         type: Sequelize.DECIMAL(8, 2),
         allowNull: false,
