@@ -14,6 +14,10 @@ class Cliente extends Sequelize.Model{
       }
     )
   }
+
+  static associate(models){
+    this.hasMany(models.Entrega, {foreignKey: 'cliente'})
+  }
 }
 
 module.exports = Cliente
