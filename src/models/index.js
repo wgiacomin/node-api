@@ -4,7 +4,7 @@ const basename = path.basename(__filename)
 
 const Sequelize = require('sequelize')
 const dbConfig = require('../database/config/dbconfig')
-const connection = new Sequelize(dbConfig)
+const sequelize = new Sequelize(dbConfig)
 const models = {}
 
 fs
@@ -14,16 +14,16 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))
-    connection[model.name] = model
+    sequelize[model.name] = model.init(sequelize)
   })
 
-Object.keys(models).forEach(model => {
-  if (models[model].associate) {
-    models[model].associate(models)
+Object.keys(models).forEach(modelName => {
+  if (models[modelName].associate) {
+    models[modelName].associate(models)
   }
 })
 
-models.connection = connection
+models.connection = sequelize
 models.Sequelize = Sequelize
 
 module.exports = models

@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const Entrega = require('../models/Cliente')
+
 
 router.get('/', (req, res) => {
-  res.send('Funciona!')
+  Entrega.findAll()
+    .then(entregas => {
+      res.send(entregas)
+    })
 })
 
 module.exports = router
