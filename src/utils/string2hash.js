@@ -4,4 +4,9 @@ function string2hash(string){
   return bcrypt.hashSync(string, bcrypt.genSaltSync(12))
 }
 
-module.exports = string2hash
+function comparePassword(password, hash){
+  return bcrypt.compareSync(password, hash)
+}
+
+module.exports = 
+{ string2hash, comparePassword }
