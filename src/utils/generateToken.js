@@ -8,4 +8,4 @@ function generateToken(id){
     return token
 }
 
-module.exports = jwt
+module.exports = generateToken
