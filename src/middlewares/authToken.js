@@ -12,7 +12,10 @@ function verifyToken(req, res, next){
         if (err){
             return res.status(401).json({msg: MSG.TOKEN_INVALIDO})
         }
-        req.userId = decoded.userId
+
+        req.user = {}
+        req.user.id = decoded.id
+        req.user.type = decoded.type
         next()
     })
 }

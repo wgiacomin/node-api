@@ -32,7 +32,7 @@ async function authenticator(req, res){
     if (!user || !comparePassword(senha, user.senha)){
       return res.status(404).json({msg: MSG.FALHA_AUTENTICACAO})
     } else {
-      const token = generateToken(user.id)
+      const token = generateToken(user.id, type)
       return res.status(200).json({msg: MSG.SUCESSO_AUTENTICACAO, authentitcation_token: token})
     }
 
