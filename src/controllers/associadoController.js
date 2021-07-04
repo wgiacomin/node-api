@@ -33,7 +33,7 @@ module.exports = {
 
       if (associado){
         res.status(201).json({msg: 'Associado adicionado.'})
-      } else {
+      } else { 
         res.status(404).json({msg: 'Houve algum erro ao adicionar associado.'})
       }
     } else {
@@ -90,6 +90,7 @@ module.exports = {
     }
 
     // Se foi definida nova senha, faz a validação
+    let novasenha
     if (senha) {
       const errPassword = passwordValidation(senha)
       if (errPassword) {
