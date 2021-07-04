@@ -90,7 +90,6 @@ module.exports = {
     }
 
     // Se foi definida nova senha, faz a validação
-    let novasenha
     if (senha) {
       const errPassword = passwordValidation(senha)
       if (errPassword) {
