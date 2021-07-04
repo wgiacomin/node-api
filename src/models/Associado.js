@@ -16,6 +16,7 @@ class Associado extends Sequelize.Model{
   }
 
   static associate(models){
+    this.hasMany(models.Cliente, {foreignKey: 'cliente'})
     this.hasMany(models.Entrega, {foreignKey: 'associado'})
     this.hasMany(models.Motoboy, {foreignKey: 'motoboy'})
   }

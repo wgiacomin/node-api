@@ -53,7 +53,7 @@ module.exports = {
   async searchAssociadoByCNPJ(req, res) {
     const busca = req.body  
 
-    if (!busca.cnpj) res.status(400).json({msg: 'Não foi informado CNPJ'})
+    if (!busca.cnpj) {res.status(400).json({msg: 'Não foi informado CNPJ'})}
 
     const associado = await Associado.findOne({
       where: {cnpj: busca.cnpj}      
@@ -69,7 +69,7 @@ module.exports = {
 
   async updateAssociado(req, res) {
     const { nome, cnpj, senha, endereco } = req.body
-    var novonome, novocnpj, novoend = ''
+    var novasenha, novonome, novocnpj, novoend
     
     const idBusca = req.params.id
           
@@ -105,7 +105,7 @@ module.exports = {
 
     // Busca associado com CNPJ igual ao informado e que
     // não seja o atual
-    const { Op } = require("sequelize")
+    const { Op } = require('sequelize')
     const isAssociado = await Associado.findOne({
       where: {
         cnpj: cnpj,

@@ -21,6 +21,12 @@ module.exports = {
       endereco:{
         type: Sequelize.STRING,
         allowNull: true
+      },
+      associado:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'Associados', key:'id'},
+        onDelete: 'CASCADE'
       }
     })
   },
