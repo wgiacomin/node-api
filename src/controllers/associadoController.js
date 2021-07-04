@@ -33,7 +33,7 @@ module.exports = {
 
       if (associado){
         res.status(201).json({msg: 'Associado adicionado.'})
-      } else {
+      } else { 
         res.status(404).json({msg: 'Houve algum erro ao adicionar associado.'})
       }
     } else {
@@ -53,7 +53,7 @@ module.exports = {
   async searchAssociadoByCNPJ(req, res) {
     const busca = req.body  
 
-    if (!busca.cnpj) res.status(400).json({msg: 'Não foi informado CNPJ'})
+    if (!busca.cnpj) {res.status(400).json({msg: 'Não foi informado CNPJ'})}
 
     const associado = await Associado.findOne({
       where: {cnpj: busca.cnpj}      
@@ -90,6 +90,7 @@ module.exports = {
     }
 
     // Se foi definida nova senha, faz a validação
+    let novasenha
     if (senha) {
       const errPassword = passwordValidation(senha)
       if (errPassword) {
@@ -105,7 +106,7 @@ module.exports = {
 
     // Busca associado com CNPJ igual ao informado e que
     // não seja o atual
-    const { Op } = require("sequelize")
+    const { Op } = require('sequelize')
     const isAssociado = await Associado.findOne({
       where: {
         cnpj: cnpj,
