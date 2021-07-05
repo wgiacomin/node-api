@@ -3,7 +3,8 @@ const router = express.Router()
 const {authenticator} = require('../controllers/authentication')
 const authToken = require('../middlewares/authToken')
 const associadoRouter = require('./associadoRouter')
-//const motoboyRouter = require('./motoboyRouter')
+const clienteRouter = require('./clienteRouter')
+const motoboyRouter = require('./motoboyRouter')
 //const entregaRouter = require('./entregaRouter')
 
 router.get('/', authToken, (req, res) => {
@@ -15,7 +16,8 @@ router.post('/auth', (req, res) => {
 }) 
 
 router.use('/associado', associadoRouter)
-//router.use('/motoboy', motoboyRouter)
+router.use('/cliente', clienteRouter)
+router.use('/motoboy', motoboyRouter)
 //router.use('/entrega', entregaRouter)
 
 

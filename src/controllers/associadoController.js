@@ -13,14 +13,13 @@ module.exports = {
     }
 
     const errPassword = passwordValidation(senha) 
-    const isAssociado = await Associado.findOne({
-      where: {cnpj: cnpj}
-    })
-
     if (errPassword) {
       res.status(403).json({msg: errPassword})
     }
-    
+
+    const isAssociado = await Associado.findOne({
+      where: {cnpj: cnpj}
+    })
     if (!isAssociado) {
       const associado = await Associado.create({
         nome,
@@ -108,7 +107,7 @@ module.exports = {
     const { Op } = require('sequelize')
     const isAssociado = await Associado.findOne({
       where: {
-        cnpj: cnpj,
+        cnpj: novocnpj,
         id: {[Op.ne]: idBusca}
       }
     }) 
@@ -150,6 +149,92 @@ module.exports = {
     } else {
       res.status(404).json({msg: 'Associado não encontrado.'})
     }
+  },
 
-  }
+
+  async getMyData(req, res) {
+    const myId = req.user.id
+
+    const associado = await Associado.findOne({
+      where: {id: myId}      
+    })
+
+    if (associado) {
+      res.status(200).json({msg: 'OK', associado})
+    }
+    else {
+      res.status(404).json({msg: 'Não foram encontrado dados do associado'})
+    }
+  },
+
+  async updateMe(req, res) {
+    const { nome, cnpj, senha, endereco } = req.body
+    var novasenha, novonome, novocnpj, novoend
+    
+    const idBusca = req.user.id
+          
+ 
+    const atual = await Associado.findOne({
+      where: {id: idBusca}
+    })
+    
+    
+    if (atual === null) {
+      res.status(404).json({msg: 'Não foram encontrados dados do associado'})
+      
+    }
+    else {
+      novonome = (nome) ? nome : atual.nome
+      novocnpj = (cnpj) ? cnpj : atual.cnpj
+      novoend = (endereco) ? endereco : atual.endereco
+    }
+
+    // Se foi definida nova senha, faz a validação
+    if (senha) {
+      const errPassword = passwordValidation(senha)
+      if (errPassword) {
+        res.status(403).json({msg: errPassword})
+      }
+      else {
+        novasenha = string2hash(senha)
+      }
+    }
+    else {
+      novasenha = atual.senha
+    }
+
+    // Busca associado com CNPJ igual ao informado e que
+    // não seja o atual
+    const { Op } = require('sequelize')
+    const isAssociado = await Associado.findOne({
+      where: {
+        cnpj: novocnpj,
+        id: {[Op.ne]: idBusca}
+      }
+    }) 
+        
+    if (!isAssociado) {
+      const associado = await Associado.update(
+        {
+          nome : novonome,
+          cnpj : novocnpj,
+          senha: novasenha,
+          endereco: novoend
+        },
+        {
+          where: {id: idBusca}
+        }
+      ).catch((error) => {
+        res.status(500).json({msg: 'Erro na alteração.', error})
+      })
+
+      if (associado){
+        res.status(201).json({msg: 'Associado alterado.'})
+      } else {
+        res.status(404).json({msg: 'Houve algum erro ao alterar associado.'})
+      }
+    } else {
+      res.status(403).json({msg: 'Já existe outro associado com esse CNPJ.'})
+    }
+  }, 
 }
