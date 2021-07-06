@@ -16,10 +16,9 @@ class Cliente extends Sequelize.Model{
   }
 
   static associate(models){
-    this.belongsTo(models.Associado, { foreignKey: 'id', foreignKeyConstraint: true})
-    this.belongsTo(models.ClienteCnpj, { foreignKey: 'id', foreignKeyConstraint: true})
-    this.belongsTo(models.ClienteCnpj, { foreignKey: 'cnpj'})
     this.hasMany(models.Entrega, {foreignKey: 'cliente'})
+    this.hasMany(models.ClienteCnpj, {foreignKey: 'cnpj'})
+    this.hasMany(models.ClienteCnpj, {foreignKey: 'cliente'})
   }
 }
 

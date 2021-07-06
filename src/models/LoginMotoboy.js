@@ -14,7 +14,8 @@ class LoginMotoboy extends Sequelize.Model{
   }
 
   static associate(models){
-    this.hasMany(models.Motoboy, {foreignKey: 'id'})
+    this.hasMany(models.Motoboy, {foreignKey: 'login'})
+    this.hasMany(models.Motoboy, {foreignKey: 'cpf'})
   }
 }
 

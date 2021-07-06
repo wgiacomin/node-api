@@ -13,10 +13,17 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      cliente:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'ClientesCnpjs', key:'id'},
+        onDelete: 'CASCADE'
+      },
       cnpj:{
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        references: {model: 'ClientesCnpjs', key:'cnpj'},
+        onDelete: 'CASCADE'
       },
       endereco:{
         type: Sequelize.STRING,
@@ -27,7 +34,7 @@ module.exports = {
         allowNull: false,
         references: {model: 'Associados', key:'id'},
         onDelete: 'CASCADE'
-      }
+      },
     })
   },
 
