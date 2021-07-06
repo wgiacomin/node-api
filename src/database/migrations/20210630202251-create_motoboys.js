@@ -15,11 +15,15 @@ module.exports = {
       },
       cpf:{
         type: Sequelize.STRING(14),
+        references: {model: 'LoginMotoboys', key:'cpf'},
         allowNull: false,
+        onDelete: 'CASCADE'
       },
-      senha:{
-        type: Sequelize.STRING,
-        allowNull:false,
+      login:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'LoginMotoboys', key:'id'},
+        onDelete: 'CASCADE'
       },
       telefone:{
         type: Sequelize.STRING,

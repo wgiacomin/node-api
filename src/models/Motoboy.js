@@ -6,7 +6,6 @@ class Motoboy extends Sequelize.Model{
       {
         nome: Sequelize.STRING,
         cpf: Sequelize.STRING(14),
-        senha: Sequelize.STRING,
         telefone: Sequelize.STRING,
         associado: Sequelize.INTEGER,
       },
@@ -18,6 +17,8 @@ class Motoboy extends Sequelize.Model{
 
   static associate(models){
     this.belongsTo(models.Associado, { foreignKey: 'id', foreignKeyConstraint: true})
+    this.belongsTo(models.LoginMotoboy, { foreignKey: 'id', foreignKeyConstraint: true})
+    this.belongsTo(models.LoginMotoboy, { foreignKey: 'cpf'})
     this.hasMany(models.Entrega, {foreignKey: 'motoboy'})
   }
 }

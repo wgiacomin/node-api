@@ -1,7 +1,7 @@
 const FIELDS = {
   LOGIN: ['cnpj', 'cpf'],
   PASSWORD: 'senha',
-  USER_DICT: ['Associado', 'Motoboy']
+  USER_DICT: ['Associado', 'LoginMotoboy']
 }
 
 const DICT = {

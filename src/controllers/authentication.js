@@ -1,6 +1,6 @@
 const { FIELDS, MSG } = require('../utils/fieldsAndMsgs')
-const { Associado, Motoboy } = require('../utils/models')
-const { string2hash, comparePassword } = require('../utils/string2hash')
+const { Associado, LoginMotoboy } = require('../utils/models')
+const { comparePassword } = require('../utils/string2hash')
 const generateToken = require('../utils/generateToken')
 
 async function authenticator(req, res){
