@@ -1,5 +1,4 @@
 'use strict'
-const { string2hash } = require('../../utils/string2hash')
 
 module.exports = {
   up: async (queryInterface) => {
