@@ -9,6 +9,7 @@ class Entrega extends Sequelize.Model{
         associado: Sequelize.INTEGER,
         valor: Sequelize.DECIMAL(8, 2),
         descricao: Sequelize.STRING,
+        status: Sequelize.STRING,
       },
       {
         sequelize,

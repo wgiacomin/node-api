@@ -21,21 +21,24 @@ module.exports = {
           motoboy: motoboysRows[0].id,
           associado: motoboysRows[0].associado,
           valor: 20.50,
-          descricao: 'Finalizado'
+          descricao: 'Produtos da NF 456',
+          status: 'Finalizado'
         },
         {
           cliente: clientesRows[1].id,
           motoboy: motoboysRows[1].id,
           associado: motoboysRows[1].associado,
           valor: 59.00,
-          descricao: 'Finalizado'
+          descricao: 'Receptor: Cleber',
+          status:'Finalizado'
         },
         {
           cliente: clientesRows[2].id,
           motoboy: motoboysRows[2].id,
           associado: motoboysRows[2].associado,
-          valor: 31.27,
-          descricao: 'Finalizado'
+          valor: 31.27,          
+          descricao: 'Cuidado frágil',
+          status: 'Pendente'
         }
       ]
     )

@@ -171,13 +171,11 @@ module.exports = {
     const { nome, cnpj, senha, endereco } = req.body
     var novasenha, novonome, novocnpj, novoend
     
-    const idBusca = req.user.id
-          
+    const idBusca = req.user.id          
  
     const atual = await Associado.findOne({
       where: {id: idBusca}
-    })
-    
+    })    
     
     if (atual === null) {
       res.status(404).json({msg: 'Não foram encontrados dados do associado'})
@@ -212,7 +210,8 @@ module.exports = {
         id: {[Op.ne]: idBusca}
       }
     }) 
-        
+    
+    // Se tudo estava certo, atualiza
     if (!isAssociado) {
       const associado = await Associado.update(
         {
