@@ -18,9 +18,9 @@ class Entrega extends Sequelize.Model{
   }
 
   static associate(models){
-    this.belongsTo(models.Cliente, { foreignKey: 'id', foreignKeyConstraint: true})
-    this.belongsTo(models.Motoboy, { foreignKey: 'id', foreignKeyConstraint: true})
-    this.belongsTo(models.Associado, { foreignKey: 'id', foreignKeyConstraint: true})
+    this.belongsTo(models.Cliente, { foreignKey: 'cliente', foreignKeyConstraint: true})
+    this.belongsTo(models.Motoboy, { foreignKey: 'motoboy', foreignKeyConstraint: true})
+    this.belongsTo(models.Associado, { foreignKey: 'associado', foreignKeyConstraint: true})
   }
 }
 

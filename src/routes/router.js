@@ -20,5 +20,4 @@ router.use('/cliente', clienteRouter)
 router.use('/motoboy', motoboyRouter)
 router.use('/entrega', entregaRouter)
 
-
 module.exports = router

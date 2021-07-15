@@ -17,9 +17,10 @@ fs
     sequelize[model.name] = model.init(sequelize)
   })
 
-Object.keys(models).forEach(modelName => {
-  if (models[modelName].associate) {
-    models[modelName].associate(models)
+
+Object.keys(sequelize.models).forEach(modelName => {
+  if (sequelize.models[modelName].associate) {
+    sequelize.models[modelName].associate(sequelize.models)
   }
 })
 

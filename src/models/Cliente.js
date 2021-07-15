@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-class Cliente extends Sequelize.Model{
+class ClienteCnpj extends Sequelize.Model{
   static init(sequelize){
     super.init(
       {
@@ -19,8 +19,8 @@ class Cliente extends Sequelize.Model{
     this.belongsTo(models.Associado, { foreignKey: 'id', foreignKeyConstraint: true})
     this.belongsTo(models.ClienteCnpj, { foreignKey: 'id', foreignKeyConstraint: true})
     this.belongsTo(models.ClienteCnpj, { foreignKey: 'cnpj'})
-    this.hasMany(models.Entrega, {foreignKey: 'cliente'})
+    this.hasMany(models.Entrega, {foreignKey: 'id'})
   }
 }
 
-module.exports = Cliente
+module.exports = ClienteCnpj

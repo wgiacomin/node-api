@@ -19,7 +19,7 @@ class Motoboy extends Sequelize.Model{
     this.belongsTo(models.Associado, { foreignKey: 'id', foreignKeyConstraint: true})
     this.belongsTo(models.LoginMotoboy, { foreignKey: 'id', foreignKeyConstraint: true})
     this.belongsTo(models.LoginMotoboy, { foreignKey: 'cpf'})
-    this.hasMany(models.Entrega, {foreignKey: 'motoboy'})
+    this.hasMany(models.Entrega, {foreignKey: 'id'})
   }
 }
 
