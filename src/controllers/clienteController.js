@@ -1,16 +1,16 @@
 
 const Cliente = require('../models/Cliente')
 
+
 module.exports = {  
 
   async newCliente(req, res) {
     const { nome, cnpj, endereco } = req.body
-    
+
     if (!nome || !cnpj) {
       res.status(400).json({msg: 'Dados obrigatórios não preenchidos.'})
     }
 
-    
     const isCliente = await Cliente.findOne({
       where: {
         cnpj: cnpj,

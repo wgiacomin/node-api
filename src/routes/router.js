@@ -5,7 +5,7 @@ const authToken = require('../middlewares/authToken')
 const associadoRouter = require('./associadoRouter')
 const clienteRouter = require('./clienteRouter')
 const motoboyRouter = require('./motoboyRouter')
-//const entregaRouter = require('./entregaRouter')
+const entregaRouter = require('./entregaRouter')
 
 router.get('/', authToken, (req, res) => {
   res.send('Ok!')
@@ -18,7 +18,7 @@ router.post('/auth', (req, res) => {
 router.use('/associado', associadoRouter)
 router.use('/cliente', clienteRouter)
 router.use('/motoboy', motoboyRouter)
-//router.use('/entrega', entregaRouter)
+router.use('/entrega', entregaRouter)
 
 
 module.exports = router
