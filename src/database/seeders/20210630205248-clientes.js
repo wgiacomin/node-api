@@ -8,34 +8,25 @@ module.exports = {
     )
     const associadosRows = associados[0]
 
-    const clientes = await queryInterface.sequelize.query(
-      'SELECT id, cnpj FROM ClientesCnpjs'
-    )
-
-    const clientesRows = clientes[0]
-
     return queryInterface.bulkInsert(
       'Clientes', [
         {
           nome: 'Don Don Yakisoba',
-          cnpj: clientesRows[0].cnpj,
+          cnpj: '34.600.167/0001-05',
           endereco: '300 Muller Plain Apt. 248 - North Miami, NJ / 22289',
           associado: associadosRows[0].id,
-          cliente: clientesRows[0].id
         },
         {
           nome: 'Cho Street Food',
-          cnpj: clientesRows[1].cnpj,
+          cnpj: '10.834.715/0001-01',
           endereco: '48246 Brakus Forks Apt. 577 - Charleston, VA / 34232',
           associado: associadosRows[1].id,
-          cliente: clientesRows[1].id
         },
         {
           nome: 'Matteo Burgers',
-          cnpj: clientesRows[2].cnpj,
+          cnpj: '67.063.214/0001-88',
           endereco: '47641 Natalia Fields Apt. 853 - Gresham, MT / 64494',
           associado: associadosRows[2].id,
-          cliente: clientesRows[2].id
         },
       ]
     )
