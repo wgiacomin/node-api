@@ -2,12 +2,14 @@ const {string2hash} = require('../utils/string2hash')
 const passwordValidation = require('../utils/passwordValidation')
 
 const Motoboy = require('../models/Motoboy')
+const LoginMotoboy = require('../models/LoginMotoboy')
 
 module.exports = {  
 
   async newMotoboy(req, res) {
     const { nome, cpf, senha, telefone } = req.body
-    
+    var login
+
     if (!nome || !cpf || !senha || !telefone) {
       res.status(400).json({msg: 'Dados obrigatórios não preenchidos.'})
     }
@@ -24,12 +26,33 @@ module.exports = {
       }
     })
 
-    if (!isMotoboy) {
+    // Busca login de motoboy. Se não existe, cria um
+    const isLoginMotoboy = await LoginMotoboy.findOne({
+      where: {
+        cpf: cpf
+      }
+    })
+
+    if (isLoginMotoboy) {
+      login = isLoginMotoboy.id
+    }
+    else {
+      const novologin = await LoginMotoboy.create( {
+        cpf,
+        senha: string2hash(senha)
+      }).catch((error) => {
+        res.status(500).json({msg: 'Não foi possível adicionar Login de Motoboy.', error})
+      })
+      login = novologin.id
+    }
+
+
+    if (!isMotoboy && login) {
       const motoboy = await Motoboy.create({
         nome,
         cpf,        
         telefone,
-        senha: string2hash(senha),
+        login: login,
         associado : req.user.id
       }).catch((error) => {
         res.status(500).json({msg: 'Não foi possível adicionar Motoboy.', error})
@@ -78,19 +101,17 @@ module.exports = {
   },
 
   async updateMotoboy(req, res) {
-    const { nome, cpf, telefone, senha } = req.body
-    var novonome, novocpf, novotel, novasenha
+    const { nome, cpf, telefone } = req.body
+    var novonome, novocpf, novotel
     
     const idBusca = req.params.id
-          
- 
+     
     const atual = await Motoboy.findOne({
       where: {
         id: idBusca,
         associado: req.user.id
       }
-    })
-    
+    })    
     
     if (atual === null) {
       res.status(404).json({msg: 'Não foi encontrado Motoboy com esse ID'})
@@ -101,22 +122,7 @@ module.exports = {
       novocpf = (cpf) ? cpf : atual.cpf
       novotel = (telefone) ? telefone : atual.telefone
     }
-
-    // Se foi definida nova senha, faz a validação
-    if (senha) {
-      const errPassword = passwordValidation(senha)
-      if (errPassword) {
-        res.status(403).json({msg: errPassword})
-      }
-      else {
-        novasenha = string2hash(senha)
-      }
-    }
-    else {
-      novasenha = atual.senha
-    }
-
-    
+        
     // Busca Motoboy com CPF igual ao informado e que
     // não seja o atual
     const { Op } = require('sequelize')
@@ -126,16 +132,14 @@ module.exports = {
         associado: req.user.id,
         id: {[Op.ne]: idBusca}
       }
-    }) 
-        
-    console.log(isMotoboy)
+    })         
+    
     if (!isMotoboy) {
       const motoboy = await Motoboy.update(
         {
           nome : novonome,
           cpf : novocpf,
-          telefone: novotel,
-          senha: novasenha
+          telefone: novotel,          
         },
         {
           where: {
@@ -160,18 +164,47 @@ module.exports = {
   async deleteMotoboy(req, res) {    
     const idBusca = req.params.id
 
-    const deletado = await Motoboy.destroy({
+    // Pega os dados atuais
+    const existente = await Motoboy.findOne({
       where: {
         id:idBusca,
         associado: req.user.id
       }
     })
+
+    // Apaga registro da tabela Motoboy
+    if (existente) {
+      const deletado = await Motoboy.destroy({
+        where: {
+          id:idBusca,
+          associado: req.user.id
+        }
+      })    
+
+      // Se o motoboy não está vinculado a outro associado,
+      // Exclui também o registro da tabela LoginMotoboy
+      const vinculo = await Motoboy.fineOne({
+        where: {
+          cpf: existente.cpf
+        }
+      })
+
+      if (!vinculo) {
+        await LoginMotoboy.destroy({
+          where: {
+            cpf: existente.cpf
+          }
+        })
+      }
     
-    if (deletado > 0) {
-      res.status(200).json({msg: 'Motoboy excluido com sucesso.'})
-    } else {
+      if (deletado > 0) {
+        res.status(200).json({msg: 'Motoboy excluido com sucesso.'})
+      } else {
+        res.status(404).json({msg: 'Motoboy não excluído.'})
+      }
+    }
+    else {
       res.status(404).json({msg: 'Motoboy não encontrado.'})
     }
-
   }
 }
