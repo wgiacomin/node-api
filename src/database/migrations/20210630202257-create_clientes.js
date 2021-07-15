@@ -16,14 +16,10 @@ module.exports = {
       cliente:{
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'ClientesCnpjs', key:'id'},
-        onDelete: 'CASCADE'
       },
       cnpj:{
         type: Sequelize.STRING,
         allowNull: false,
-        references: {model: 'ClientesCnpjs', key:'cnpj'},
-        onDelete: 'CASCADE'
       },
       endereco:{
         type: Sequelize.STRING,
