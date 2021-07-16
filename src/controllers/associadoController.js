@@ -285,6 +285,7 @@ module.exports = {
         attributes: ['nome'],
       }],
       group: [[sequelize.col('Cliente.id')]],
+      order: [[sequelize.fn('COUNT', sequelize.col('Cliente.id')),'DESC']],
       raw: true,
       limit: 5
     })
@@ -307,6 +308,7 @@ module.exports = {
         attributes: ['nome'],
       }],
       group: [[sequelize.col('Motoboy.id')]],
+      order: [[sequelize.fn('COUNT', sequelize.col('Motoboy.id')),'DESC']],
       raw: true,
       limit: 5
     })
