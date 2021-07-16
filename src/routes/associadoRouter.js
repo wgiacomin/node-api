@@ -15,5 +15,6 @@ associadoRouter.delete('/delete/:id', associadoController.deleteAssociado)
 associadoRouter.get('/mydata', authToken, authAssociado, associadoController.getMyData)
 associadoRouter.put('/updateme/', authToken, authAssociado, associadoController.updateMe)
 associadoRouter.get('/report', authToken, authAssociado, associadoController.report)
+associadoRouter.get('/finreport', authToken, authAssociado, associadoController.finreport)
 
 module.exports = associadoRouter

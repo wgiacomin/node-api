@@ -3,6 +3,9 @@ const passwordValidation = require('../utils/passwordValidation')
 
 const Motoboy = require('../models/Motoboy')
 const LoginMotoboy = require('../models/LoginMotoboy')
+const Entrega = require('../models/Entrega')
+const Sequelize = require('sequelize')
+
 
 module.exports = {  
 
@@ -206,5 +209,45 @@ module.exports = {
     else {
       res.status(404).json({msg: 'Motoboy não encontrado.'})
     }
+  },
+
+  async report (req, res) {
+    const idMotoboy = req.user.id
+
+    // Pega lista de IDs do motoboy logado
+    const listamoto = await Motoboy.findAll({
+      raw: true,
+      attributes: ['id'],
+      where: {
+        login: idMotoboy
+      }      
+    })    
+    var ids = ''
+    for (var key in listamoto) {
+      ids += listamoto[key].id+','
+    }    
+
+    const Op = Sequelize.Op
+    
+    const entregas = await Entrega.findAll({
+      raw: true,
+      attributes: [
+        [Sequelize.fn('SUM', Sequelize.col('valor')), 'soma']
+      ],
+      where: {
+        motoboy: {
+          [Op.in]: [ids]
+        },
+        status: 'Finalizado'
+      }
+    })
+    if (entregas) {
+      const soma = entregas[0]['soma']
+      const percentual = soma * 0.7
+      res.status(200).json({
+        'Valor total': 'R$ '+soma,
+        'Minha parte': 'R$ '+percentual.toFixed(2)
+      })
+    }    
   }
 }

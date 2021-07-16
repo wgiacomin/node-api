@@ -327,6 +327,34 @@ module.exports = {
       'Entregas efetuadas': (entregasCount * 100 / entregasTotal).toFixed(2) + '%',
       'Entregas pendentes': ((1 - entregasCount / entregasTotal) * 100).toFixed(2) + '%',
     })
+  },
+
+  async finreport (req, res) {
+    const idAssoc = req.user.id
+
+    
+
+      
+    const entregas = await Entrega.findAll({
+      raw: true,
+      attributes: [
+        [sequelize.fn('SUM', sequelize.col('valor')), 'soma']
+      ],
+      where: {
+        associado: idAssoc,
+        status: 'Finalizado'
+      }
+    })
+    if (entregas) {
+      const soma = entregas[0]['soma']
+      const percassociado = soma * 0.3
+      const percentual = soma * 0.7
+      res.status(200).json({
+        'Valor total': 'R$ '+soma,
+        'Minha parte': 'R$ '+percassociado.toFixed(2),
+        'Parte do motoboy': 'R$ '+percentual.toFixed(2)
+      })
+    }    
   }
 
 }
