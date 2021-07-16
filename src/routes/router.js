@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const {authenticator} = require('../controllers/authentication')
+const { authenticator } = require('../controllers/authentication')
 const logout = require('../controllers/logout')
 const authToken = require('../middlewares/authToken')
 const associadoRouter = require('./associadoRouter')
 const clienteRouter = require('./clienteRouter')
 const motoboyRouter = require('./motoboyRouter')
 const entregaRouter = require('./entregaRouter')
+const { report } = require('../temp/query1')
 
 router.get('/', authToken, (req, res) => {
   res.send('Ok!')
@@ -14,11 +15,11 @@ router.get('/', authToken, (req, res) => {
 
 router.post('/login', (req, res) => {
   authenticator(req, res)
-}) 
+})
 
 router.get('/logout', (req, res) => {
   logout(req, res)
-}) 
+})
 
 router.use('/associado', associadoRouter)
 router.use('/cliente', clienteRouter)

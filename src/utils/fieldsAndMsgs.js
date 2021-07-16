@@ -18,6 +18,7 @@ const MSG = {
   TOKEN_AUSENTE: 'Para esse tipo de requisição é necessário um token de autenticação.',
   SEM_PERMISSAO: 'Você não tem permissão para executar essa requisição.',
   LOGOUT: 'Logout efetuado com sucesso.',
+  ERRO_DESCONHECIDO: 'Algo inesperado ocorreu. Tente novamente!.'
 }
 
 module.exports = {

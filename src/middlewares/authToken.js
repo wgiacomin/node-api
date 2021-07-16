@@ -12,7 +12,6 @@ function verifyToken(req, res, next){
     if (err){
       return res.status(401).json({msg: MSG.TOKEN_INVALIDO})
     }
-
     req.user = {}
     req.user.id = decoded.id
     req.user.type = decoded.type
