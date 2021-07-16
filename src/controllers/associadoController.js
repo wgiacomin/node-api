@@ -322,7 +322,7 @@ module.exports = {
       'Motoboys cadastrados': motoboysCount,
       'Clientes cadastrados': clientesCount,
       'Entregas realizadas': entregasCount,
-      'Top 5 Clientes': topClientes,
+      'Top 5 clientes': topClientes,
       'Top 5 motoboys': topMotoboys,
       'Entregas efetuadas': (entregasCount * 100 / entregasTotal).toFixed(2) + '%',
       'Entregas pendentes': ((1 - entregasCount / entregasTotal) * 100).toFixed(2) + '%',
