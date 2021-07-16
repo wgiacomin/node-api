@@ -16,7 +16,8 @@ const MSG = {
   TIPO_ERRADO: 'O campo de login está preenchido de forma inconsistente ou não está presente. Por favor, revise e tente novamente.',
   TOKEN_INVALIDO: 'O token de autenticação enviado expirou ou não é válido.',
   TOKEN_AUSENTE: 'Para esse tipo de requisição é necessário um token de autenticação.',
-  SEM_PERMISSAO: 'Você não tem permissão para executar essa requisição.'
+  SEM_PERMISSAO: 'Você não tem permissão para executar essa requisição.',
+  LOGOUT: 'Logout efetuado com sucesso.',
 }
 
 module.exports = {
